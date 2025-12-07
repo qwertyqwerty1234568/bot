@@ -2,7 +2,7 @@ import asyncio
 import logging
 from datetime import datetime, time, timedelta
 from typing import Dict
-import pytzhttps://github.com/qwertyqwerty1234568/bot/blob/main/bot.py#L17C13-L17C59
+import pytz
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
@@ -312,3 +312,4 @@ async def main():
 if __name__ == '__main__':
 
     asyncio.run(main())
+
