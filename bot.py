@@ -2,7 +2,7 @@ import asyncio
 import logging
 from datetime import datetime, time, timedelta
 from typing import Dict
-import pytz
+import pytzhttps://github.com/qwertyqwerty1234568/bot/blob/main/bot.py#L17C13-L17C59
 
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Токен вашего бота (замените на свой)
-API_TOKEN = '7843956120:AAGueiVk4v5GJ8rlP222SjPXnMCGKyn_txE'
+API_TOKEN = '!'
 
 # Инициализация бота и диспетчера
 bot = Bot(token=API_TOKEN)
@@ -310,4 +310,5 @@ async def main():
 
 
 if __name__ == '__main__':
+
     asyncio.run(main())
