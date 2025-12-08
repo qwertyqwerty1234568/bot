@@ -293,6 +293,59 @@ async def check_and_send_reminders():
         await asyncio.sleep(60)
 
 
+def get_confirmation_keyboard():
+    pass
+
+
+@dp.message(Command("test"))
+async def cmd_test(message: types.Message):
+    """Тестовая рассылка напоминаний всем пользователям"""
+    user_id = message.from_user.id
+
+    # Проверяем, является ли пользователь администратором (ваш ID)
+    ADMIN_ID = 7429195391  # Замените на ваш ID в Telegram
+
+    if user_id != ADMIN_ID:
+        await message.answer("Эта команда только для администратора")
+        return
+
+    # Получаем всех пользователей
+    users_count = len(user_data)
+
+    if users_count == 0:
+        await message.answer("Нет пользователей для рассылки")
+        return
+
+    await message.answer(f"Начинаю тестовую рассылку для {users_count} пользователей...")
+
+    sent_count = 0
+    failed_count = 0
+
+    # Отправляем тестовое напоминание каждому пользователю
+    for user_id in list(user_data.keys()):
+        try:
+            await bot.send_message(
+                user_id,
+                "🧪 ТЕСТ: Котёнок, выпей колёсики\n"
+                "test",
+                reply_markup=get_confirmation_keyboard()
+            )
+            sent_count += 1
+        except Exception as e:
+            logger.error(f"Ошибка при отправке теста пользователю {user_id}: {e}")
+            failed_count += 1
+            # Удаляем пользователя, если не можем отправить сообщение
+            if "blocked" in str(e).lower() or "Forbidden" in str(e):
+                del user_data[user_id]
+
+    await message.answer(
+        f"✅ Тестовая рассылка завершена:\n"
+        f"• Отправлено: {sent_count}\n"
+        f"• Не отправлено: {failed_count}\n"
+        f"• Всего пользователей: {len(user_data)}"
+    )
+
+
 async def on_startup():
     """Действия при запуске бота"""
     logger.info("Бот запущен!")
@@ -310,7 +363,4 @@ async def main():
 
 
 if __name__ == '__main__':
-
     asyncio.run(main())
-
-
