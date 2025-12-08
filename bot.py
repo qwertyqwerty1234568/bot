@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Токен вашего бота (замените на свой)
-API_TOKEN = '!'
+API_TOKEN = '8528985990:AAHiWhRLZYHdDC6rvcpRDI8YlH_fzF03BpY'
 
 # Инициализация бота и диспетчера
 bot = Bot(token=API_TOKEN)
@@ -312,4 +312,5 @@ async def main():
 if __name__ == '__main__':
 
     asyncio.run(main())
+
 
